@@ -1,0 +1,6 @@
+aiodns
+cchardet
+aiohttp
+asyncio
+python-dotenv
+coloredlogs
