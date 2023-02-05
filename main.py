@@ -7,18 +7,19 @@
 import asyncio
 import logging
 import os.path
-import sys
+import time
 import coloredlogs
 from json import loads
 
 import aiohttp
 from dotenv import load_dotenv
+from progress.bar import IncrementalBar
 
 FORMAT = '[%(asctime)s] [%(filename)s] [%(levelname)s] [%(lineno)d]: %(' \
          'message)s '
 formatter = logging.Formatter(FORMAT)
 formatter_color = coloredlogs.ColoredFormatter(FORMAT)
-LOG_LEVEL = logging.DEBUG
+LOG_LEVEL = logging.INFO
 
 stream = logging.StreamHandler()
 stream.setLevel(LOG_LEVEL)
@@ -76,6 +77,7 @@ async def video_delete(session: aiohttp.ClientSession) -> bool:
     videos = await get_videos(session)
     flag: bool = True
 
+    bar = IncrementalBar('Deleted videos', max=len(videos))
     for video in videos:
         params = {'access_token': os.environ.get('token'), 'v': '5.131', 'target_id': os.environ.get('target_id'),
                   'owner_id': video['owner_id'], 'video_id': video['id']}
@@ -88,11 +90,12 @@ async def video_delete(session: aiohttp.ClientSession) -> bool:
             flag = False
             continue
 
+        bar.next()
         logger.debug(f'Response: {result}')
-        logger.info(f'Deleted video {video["id"]}')
+        logger.debug(f'Deleted video {video["id"]}')
 
         await asyncio.sleep(2)
-
+    bar.finish()
     await session.close()
 
     return flag
