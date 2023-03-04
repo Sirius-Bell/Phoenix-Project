@@ -2,9 +2,9 @@
 .idea
 
 # Ignore build
-.build
-.dist
-.phoenix.spec
+build
+dist
+phoenix.spec
 
 # Ignore poetry
-.poetry.lock
+poetry.lock
