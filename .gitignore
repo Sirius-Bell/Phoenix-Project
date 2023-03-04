@@ -3,3 +3,8 @@
 
 # Ignore idea
 .idea
+
+# Ignore build
+.build
+.dist
+.phoenix.spec
