@@ -1,8 +1,5 @@
 # Ignore virtual environment
 .venv
 
-# Ignore environment configuration
-.env
-
 # Ignore idea
 .idea
