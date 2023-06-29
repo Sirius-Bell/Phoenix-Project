@@ -2,8 +2,8 @@ import threading
 from time import sleep
 
 import PySimpleGUI as Sg
-import helperclass
 import requests
+from loguru import logger
 
 Sg.theme('DarkAmber')
 
@@ -26,7 +26,6 @@ class Main:
         self.access_token = access_token
         self.target_id = target_id
 
-        self.helper = helperclass.Helper()
 
     def get_videos(self) -> list:
         url = "https://api.vk.com/method/video.get"
@@ -34,11 +33,11 @@ class Main:
 
         resp = requests.get(url, params=params).json()
         if 'response' not in resp:
-            self.helper.logger.critical('Error getting videos')
+            logger.critical('Error getting videos')
             window['-COMPL-'].update('Error getting videos', visible=True)
             return []
         if resp['response']['count'] == 0:
-            self.helper.logger.critical('No videos found')
+            logger.critical('No videos found')
             window['-COMPL-'].update('No videos found', visible=True)
             return []
 
@@ -50,10 +49,10 @@ class Main:
         resp = requests.get("https://api.vk.com/method/video.delete", params=params).json()
 
         if resp['response'] == 1:
-            self.helper.logger.info(f'Video deleted: {video_id}')
+            logger.info(f'Video deleted: {video_id}')
             return True
         else:
-            self.helper.logger.critical(f'Error: {resp}')
+            logger.critical(f'Error: {resp}')
 
 
 def event_ok(values_s):

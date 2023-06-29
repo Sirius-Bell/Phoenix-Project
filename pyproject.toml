@@ -2,22 +2,19 @@
 name = "phoenix-project"
 version = "0.2"
 description = "Simple GUI for automate deleting videos"
-authors = ["Lonely-Dark <vlad10game@gmail.com>"]
+authors = ["Sirius-Bell <vlad10game@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 packages = [{include = "phoenix_project"}]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.11"
 requests = "^2.28.2"
-helperclass = {git = "https://github.com/Lonely-Dark/helperclass-pack.git"}
-logging = "^0.4.9.6"
 PySimpleGUI = "^4.60.4"
-coloredlogs = "^15.0.1"
-python-dotenv = "^1.0.0"
+loguru = "^0.7.0"
 
 [tool.poetry.group.dev.dependencies]
-pyinstaller = {version = "^5.8.0", python = ">=3.10,<3.12"}
+pyinstaller = {version = "^5.8.0", python = ">=3.11,<3.12"}
 
 [build-system]
 requires = ["poetry-core"]
